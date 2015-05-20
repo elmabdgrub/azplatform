@@ -1,0 +1,20 @@
+BackOfficeBundle\Entity\Collaborateur:
+    properties:
+        file:
+            - File:
+                maxSize: 6000000
+BackOfficeBundle\Entity\Client:
+    properties:
+        file:
+            - File:
+                maxSize: 6000000
+BackOfficeBundle\Entity\FichierProjet:
+    properties:
+        file:
+            - File:
+                maxSize: 6000000
+BackOfficeBundle\Entity\FichierTache:
+    properties:
+        file:
+            - File:
+                maxSize: 6000000

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html><head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <meta charset="utf-8">
+    <title>{% block title %}AZCreator-Platform{% endblock %}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="{{asset('FilesLogin/css.css') }}">
+
+        <link rel="stylesheet" type="text/css" href="{{asset('FilesLogin/ie_split1.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{asset('FilesLogin/ie_split2.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{asset('FilesLogin/ie_split3.css') }}">
+
+        <link rel="stylesheet" type="text/css" href="{{asset('FilesLogin/admin-forms.css') }}">
+    {% endblock %}
+
+
+
+</head>
+<body class="external-page sb-l-c sb-r-c onload-check">
+{% block body %}
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{asset('FilesLogin/jquery-1.js') }}"></script>
+<script type="text/javascript" src="{{asset('FilesLogin/jquery-ui.js') }}"></script>
+
+<script type="text/javascript" src="{{asset('FilesLogin/bootstrap.js') }}"></script>
+
+<script type="text/javascript" src="{{asset('FilesLogin/EasePack.js') }}"></script>
+<script type="text/javascript" src="{{asset('FilesLogin/TweenLite.js') }}"></script>
+<script type="text/javascript" src="{{asset('FilesLogin/login.js') }}"></script>
+
+<script type="text/javascript" src="{{asset('FilesLogin/utility.js') }}"></script>
+<script type="text/javascript" src="{{asset('FilesLogin/main.js') }}"></script>
+<script type="text/javascript" src="{{asset('FilesLogin/demo.js') }}"></script>
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+
+        "use strict";
+
+        // Init Theme Core
+        Core.init();
+
+        // Init Demo JS
+        Demo.init();
+
+        // Init CanvasBG and pass target starting location
+        CanvasBG.init({
+            Loc: {
+                x: window.innerWidth / 2,
+                y: window.innerHeight / 3.3
+            },
+        });
+
+
+    });
+</script>
+
+{% endblock %}
+<!-- end: JavaScript-->
+
+</body>
+</html>

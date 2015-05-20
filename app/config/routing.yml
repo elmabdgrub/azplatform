@@ -1,0 +1,11 @@
+back_office:
+
+    resource: "@BackOfficeBundle/Resources/config/routing.yml"
+    prefix:   /platform
+front_office:
+
+    resource: "@FrontOfficeBundle/Resources/config/routing.yml"
+    prefix:   /collaborateur
+
+
+

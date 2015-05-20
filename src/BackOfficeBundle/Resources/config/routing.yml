@@ -1,0 +1,193 @@
+back_office_homepage:
+    path:     /
+    defaults: { _controller: BackOfficeBundle:Index:index }
+admin-profil:
+    path:     /admin-profil
+    defaults: { _controller: BackOfficeBundle:Collaborateur:profil }
+
+ajouter-hebergement:
+    path:     /add-heb
+    defaults: { _controller: BackOfficeBundle:Hebergement:add }
+liste-hebergement:
+    path:     /list-heb
+    defaults: { _controller: BackOfficeBundle:Hebergement:lister }
+view-hebergement:
+    path:     /view-heb/{id}
+    defaults: { _controller: BackOfficeBundle:Hebergement:view }
+notifier-hebergement:
+    path:     /notifier-heb/{id}/{client}
+    defaults: { _controller: BackOfficeBundle:Hebergement:notifier }
+edit-hebergement:
+    path:     /edit-heb/{id}
+    defaults: { _controller: BackOfficeBundle:Hebergement:edit }
+delete-hebergement:
+    path:     /delete-heb/{id}
+    defaults: { _controller: BackOfficeBundle:Hebergement:delete }
+ajouter-projet:
+    path:     /add-projet
+    defaults: { _controller: BackOfficeBundle:Projet:add }
+encours-projet:
+    path:     /encours-projet
+    defaults: { _controller: BackOfficeBundle:Projet:encours }
+liste-projet:
+    path:     /liste-projet
+    defaults: { _controller: BackOfficeBundle:Projet:lister }
+edit-projet:
+    path:     /edit-projet/{id}
+    defaults: { _controller: BackOfficeBundle:Projet:edit }
+
+view-projet:
+    path:     /view-projet/{id}
+    defaults: { _controller: BackOfficeBundle:Projet:view }
+messages-projet:
+    path:     /messages-projet/{id}
+    defaults: { _controller: BackOfficeBundle:Projet:messages }
+messages-notification:
+    path:     /messages-notification
+    defaults: { _controller: BackOfficeBundle:Notification:messages }
+fichiers-notification:
+    path:     /fichiers-notification
+    defaults: { _controller: BackOfficeBundle:Notification:fichiers }
+
+ajouter-tache:
+    path:     /add-tache/{id}
+    defaults: { _controller: BackOfficeBundle:Tache:add }
+affect-collaborateur:
+    path:     /affect-collab/{id}/{tache}
+    defaults: { _controller: BackOfficeBundle:Tache:affect }
+desaffect-collaborateur:
+    path:     /desaffect-collab/{id}/{tache}
+    defaults: { _controller: BackOfficeBundle:Tache:desaffect }
+edit-tache:
+    path:     /edit-tache/{id}
+    defaults: { _controller: BackOfficeBundle:Tache:edit }
+delete-tache:
+    path:     /delete-tache/{id}
+    defaults: { _controller: BackOfficeBundle:Tache:delete }
+view-tache:
+    path:     /view-tache/{id}
+    defaults: { _controller: BackOfficeBundle:Tache:view }
+messages-taches:
+    path:     /messages-tache/{id}
+    defaults: { _controller: BackOfficeBundle:Tache:messages }
+ajouter-depense:
+    path:     /add-depense/{id}
+    defaults: { _controller: BackOfficeBundle:Depense:add }
+edit-depense:
+    path:     /edit-depense/{id}
+    defaults: { _controller: BackOfficeBundle:Depense:edit }
+delete-depense:
+    path:     /delete-depense/{id}
+    defaults: { _controller: BackOfficeBundle:Depense:delete }
+ajouter-tranche:
+    path:     /add-tranche/{id}
+    defaults: { _controller: BackOfficeBundle:Tranche:add }
+edit-tranche:
+    path:     /edit-tranche/{id}
+    defaults: { _controller: BackOfficeBundle:Tranche:edit }
+delete-tranche:
+    path:     /delete-tranche/{id}
+    defaults: { _controller: BackOfficeBundle:Tranche:delete }
+
+ajouter-client:
+    path:     /add-client
+    defaults: { _controller: BackOfficeBundle:Client:add }
+liste-client:
+    path:     /liste-client
+    defaults: { _controller: BackOfficeBundle:Client:lister }
+show-client:
+    path:     /show-client/{id}
+    defaults: { _controller: BackOfficeBundle:Client:show }
+edit-client:
+    path:     /edit-client/{id}
+    defaults: { _controller: BackOfficeBundle:Client:edit }
+delete-client:
+    path:     /delete-client/{id}
+    defaults: { _controller: BackOfficeBundle:Client:delete }
+ajouter-collaborateur:
+    path:     /add-collaborateur
+    defaults: { _controller: BackOfficeBundle:Collaborateur:add }
+liste-collaborateur:
+    path:     /liste-collaborateur
+    defaults: { _controller: BackOfficeBundle:Collaborateur:lister }
+edit-collaborateur:
+    path:     /edit-collaborateur/{id}
+    defaults: { _controller: BackOfficeBundle:Collaborateur:edit }
+delete-collaborateur:
+    path:     /delete-collaborateur/{id}
+    defaults: { _controller: BackOfficeBundle:Collaborateur:delete }
+reset-collaborateur:
+    path:     /reset-collaborateur/{id}
+    defaults: { _controller: BackOfficeBundle:Collaborateur:reset }
+view-collaborateur:
+    path:     /view-collaborateur/{id}
+    defaults: { _controller: BackOfficeBundle:Collaborateur:view }
+ajouter-poste-col:
+    path:     /add-poste-col
+    defaults: { _controller: BackOfficeBundle:PosteCollaborateur:add }
+liste-poste-col:
+    path:     /liste-poste-col
+    defaults: { _controller: BackOfficeBundle:PosteCollaborateur:lister }
+edit-poste-col:
+    path:     /edit-poste/{id}
+    defaults: { _controller: BackOfficeBundle:PosteCollaborateur:edit }
+delete-poste-col:
+    path:     /delete-poste/{id}
+    defaults: { _controller: BackOfficeBundle:PosteCollaborateur:delete }
+ajouter-type-projet:
+    path:     /platform/add-type-projet
+    defaults: { _controller: BackOfficeBundle:TypeProjet:add }
+liste-type-projet:
+    path:     /liste-type-projet
+    defaults: { _controller: BackOfficeBundle:TypeProjet:lister }
+edit-type-projet:
+    path:     /edit-type-projet/{id}
+    defaults: { _controller: BackOfficeBundle:TypeProjet:edit }
+delete-type-projet:
+    path:     /delete-type-projet/{id}
+    defaults: { _controller: BackOfficeBundle:TypeProjet:delete }
+ajouter-statut-projet:
+    path:     /add-statut-projet
+    defaults: { _controller: BackOfficeBundle:StatutProjet:add }
+liste-statut-projet:
+    path:     /liste-statut-projet
+    defaults: { _controller: BackOfficeBundle:StatutProjet:lister }
+edit-statut-projet:
+    path:     /edit-statut-projet/{id}
+    defaults: { _controller: BackOfficeBundle:StatutProjet:edit }
+
+    defaults: { _controller: BackOfficeBundle:StatutProjet:delete }
+ajouter-statut-tache:
+    path:     /add-statut-tache
+    defaults: { _controller: BackOfficeBundle:StatutTache:add }
+liste-statut-tache:
+    path:     /liste-statut-tache
+    defaults: { _controller: BackOfficeBundle:StatutTache:lister }
+edit-statut-tache:
+    path:     /edit-statut-tache/{id}
+    defaults: { _controller: BackOfficeBundle:StatutTache:edit }
+
+ajouter-type-depense:
+    path:     /add-type-depense
+    defaults: { _controller: BackOfficeBundle:TypeDepense:add }
+liste-type-depense:
+    path:     /liste-type-depense
+    defaults: { _controller: BackOfficeBundle:TypeDepense:lister }
+edit-type-depense:
+    path:     /edit-type-depense/{id}
+    defaults: { _controller: BackOfficeBundle:TypeDepense:edit }
+delete-type-depense:
+    path:     /delete-type-depense/{id}
+    defaults: { _controller: BackOfficeBundle:TypeDepense:delete }
+backlogin:
+
+    pattern:   /login
+    defaults:  { _controller: UserBundle:Security:login }
+
+backlogin_check:
+
+    pattern:   /login_check
+
+backlogout:
+
+    pattern:   /logout
