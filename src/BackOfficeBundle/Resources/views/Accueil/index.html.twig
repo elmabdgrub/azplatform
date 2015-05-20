@@ -1,0 +1,598 @@
+{% extends "BackOfficeBundle::layout.html.twig" %}
+
+{% block title %}
+  Accueil  {{ parent() }}
+{% endblock %}
+
+{% block content_body %}
+<div class="row-fluid">
+
+        <div class="span3 statbox blue" onTablet="span6" onDesktop="span3">
+          <div ><span><h1>Projets en <br/> cours</h1></span></div>
+          <div class="number">{{ statprojets[0] }}<i ></i></div>
+          <div class="title"> </div>
+          <div class="footer">
+            <a href="#"> </a>
+          </div>  
+        </div>
+        <div class="span3 statbox green" onTablet="span6" onDesktop="span3">
+         <div ><span><h1>Projets <br/> terminés </h1></span></div>
+          <div class="number">{{ statprojets[3] }}<i ></i></div>
+          <div class="title"> </div>
+          <div class="footer">
+            <a href="#"> </a>
+          </div>
+        </div>
+        <div class="span3 statbox red noMargin" onTablet="span6" onDesktop="span3">
+         <div ><span><h1>Projets en <br/> retard </h1></span></div>
+          <div class="number">{{ statprojets[4] }}<i ></i></div>
+          <div class="title"> </div>
+          <div class="footer">
+            <a href="#"> </a>
+          </div>
+        </div>
+        <div class="span3 statbox yellow " onTablet="span6" onDesktop="span3">
+          <div ><span><h1>Projets non <br/>démarrés </h1></span></div>
+          <div class="number">{{ statprojets[1] }}<i ></i></div>
+          <div class="title"> </div>
+          <div class="footer">
+            <a href="#"> </a>
+          </div>
+        </div>  
+        
+      </div>    
+
+      <div class="row-fluid portable">
+        <div class="box span6">
+					<div class="box-header">
+						<h2><i class="halflings-icon white align-justify"></i><span class="break"></span>Total des projets par types</h2>
+						<div class="box-icon">
+							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
+							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+                    <div id="totptype" ></div>
+					</div>
+				</div><!--/span-->
+
+				<div class="box span6">
+					<div class="box-header">
+						<h2><i class="halflings-icon white align-justify"></i><span class="break"></span>Total des projets par clients</h2>
+						<div class="box-icon">
+
+							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
+							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+                    <div id="totpclient" ></div>
+					</div>
+
+					</div>
+			<!--/span-->
+
+
+      </div>
+      
+            
+      <div class="row-fluid portable">
+         <div class="box span6">
+					<div class="box-header">
+						<h2><i class="halflings-icon white align-justify"></i><span class="break"></span>Chiffre d'affaires par clients</h2>
+						<div class="box-icon">
+							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
+							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+                    <div id="caclients" ></div>
+					</div>
+				</div><!--/span-->
+
+				<div class="box span6">
+					<div class="box-header">
+						<h2><i class="halflings-icon white align-justify"></i><span class="break"></span>Rentabilité par types de projets</h2>
+						<div class="box-icon">
+
+							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
+							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+                    <div id="typerentable" ></div>
+					</div>
+
+					</div>
+			<!--/span-->
+
+      </div>
+      
+      <div class="row-fluid">
+
+ <div class="box span6">
+					<div class="box-header">
+						<h2><i class="halflings-icon white align-justify"></i><span class="break"></span>Temps de réalisation des projets par types de projets</h2>
+						<div class="box-icon">
+							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
+							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+
+    <div id="container" >
+					</div>
+					</div>
+				</div><!--/span-->
+
+				<div class="box span6">
+					<div class="box-header">
+						<h2><i class="halflings-icon white align-justify"></i><span class="break"></span>Total des dépenses par types</h2>
+						<div class="box-icon">
+
+							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
+							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+                    <div id="typedepenses" ></div>
+					</div>
+
+					</div>
+			<!--/span-->
+
+      
+      </div>
+      <div class="row-fluid hideInIE8 circleStats">
+        
+
+            
+      </div>    
+      <div class="row-fluid sortable">
+		<div class="box span12">
+			<div class="box-header" data-original-title>
+				<h2><i class="halflings-icon white user"></i><span class="break"></span>Hébergements web </h2>
+				<div class="box-icon">
+
+				</div>
+			</div>
+
+			<div class="box-content">
+
+<div id="hebergements" ></div>
+
+
+			</div>
+		</div><!--/span-->
+
+	</div><!--/row-->
+
+      <div class="row-fluid"> 
+
+        <a class="quick-button metro yellow span2">
+          <i class="icon-group"></i>
+          <p>Collaborateurs</p>
+          <span class="badge">{{ stats['collaborateurs'] }}</span>
+        </a>
+        <a class="quick-button metro red span2">
+          <i class="icon-road"></i>
+          <p>Projets</p>
+          <span class="badge">{{ stats['projets'] }}</span>
+        </a>
+        <a class="quick-button metro green span2">
+          <i class="icon-tag"></i>
+          <p>Types de projets</p>
+          <span class="badge">{{ stats['typesprj'] }}</span>
+        </a>
+        <a class="quick-button metro blue span2">
+          <i class="icon-calendar"></i>
+          <p>Tâches</p>
+          <span class="badge">{{ stats['taches'] }}</span>
+        </a>
+
+        <a class="quick-button metro pink span2">
+          <i class="icon-cloud"></i>
+          <p>Hébergements</p>
+          <span class="badge">{{ stats['hebergement'] }}</span>
+        </a>
+        <a class="quick-button metro black span2">
+          <i class="icon-briefcase"></i>
+          <p>Clients</p>
+           <span class="badge">{{ stats['clients'] }}</span>
+        </a>
+        
+        <div class="clearfix"></div>
+                
+      </div><!--/row-->
+      
+       
+
+  </div><!--/.fluid-container-->
+
+
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+<script type="text/javascript">
+
+
+    $(function () {
+        $('#totptype').highcharts({
+            chart: {
+                type: 'column',
+                margin: 75,
+                options3d: {
+                    enabled: true,
+                    alpha: 5,
+                    beta: 18,
+                    depth: 70
+                }
+            },
+            title: {
+                text: ''
+            },
+
+            plotOptions: {
+                column: {
+                    depth: 35
+                }
+            },
+            xAxis: {
+                categories: [{% for type in typesprojets['type']  %}'{% if loop.last %}{{ type }}'{% else %}{{ type }}',{% endif %}{% endfor %}],
+                title: {
+                    text: null
+                },
+                labels: {
+                    style: {
+
+                                fontSize:'9px'
+                    }
+                }
+            },
+            yAxis: {
+                allowDecimals: false,
+                title: {
+                    text: null
+                }
+            },
+            series: [{
+                name: 'Nombre de projets',
+                data:  [{% for tot in typesprojets['tot']  %}{% if loop.last %}{{ tot }}{% else %}{{ tot }},{% endif %}{% endfor %}],
+                color: '#07A5C0'
+            }]
+        });
+    });
+    $(function () {
+                $('#totpclient').highcharts({
+                    chart: {
+                        type: 'column',
+                        margin: 75,
+                        options3d: {
+                            enabled: true,
+                            alpha: 5,
+                            beta: 18,
+                            depth: 70
+                        }
+                    },
+                    title: {
+                        text: ''
+                    },
+
+                    plotOptions: {
+                        column: {
+                            depth: 35
+                        }
+                    },
+                    xAxis: {
+                        categories: [{% for client in clientstotprj['client']  %}'{% if loop.last %}{{ client }}'{% else %}{{ client }}',{% endif %}{% endfor %}],
+                            title: {
+                    text: null
+                },
+                labels: {
+                    style: {
+
+                        fontSize:'9px'
+                    }
+                }
+            },
+            yAxis: {
+        allowDecimals: false,
+                title: {
+            text: null
+        }
+    },
+    series: [{
+        name: 'Nombre de projets',
+        data:  [{% for tot in clientstotprj['tot']  %}{% if loop.last %}{{ tot }}{% else %}{{ tot }},{% endif %}{% endfor %}],
+        color: '#E25A59'
+    }]
+    });
+    });
+    $(function () {
+        $('#caclients').highcharts({
+            chart: {
+                type: 'pie',
+                options3d: {
+                    enabled: true,
+                    alpha: 45,
+                    beta: 0
+                }
+            },
+            title: {
+                text: '',
+                style: {
+                    display: 'none'
+                }
+            },
+            subtitle: {
+                text: '',
+                style: {
+                    display: 'none'
+                }
+            },
+            tooltip: {
+                pointFormat: '<b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    depth: 35,
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b> : {point.y} DH'
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: "Pourcentage du chiffre d'affaires total",
+                data: [
+                    {% for key in clientstotprj['client']|keys  %}
+                    ['{{ clientstotprj['client'][key] }}',   {{ clientstotprj['ca'][key] }}],
+                    {% endfor %}
+                ]
+            }]
+        });
+    });
+
+    $(function () {
+                $('#typerentable').highcharts({
+                    chart: {
+                        type: 'column',
+                        margin: 75,
+                        options3d: {
+                            enabled: true,
+                            alpha: 0,
+                            beta: 25,
+                            depth: 70
+                        }
+                    },
+                    title: {
+                        text: ' '
+                    },
+
+                    plotOptions: {
+                        column: {
+                            depth: 25
+                        },
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y} DH'
+                        }
+                    },
+                    xAxis: {
+                        categories: [{% for type in typesprojets['type']  %}'{% if loop.last %}{{ type }}'{% else %}{{ type }}',{% endif %}{% endfor %}],
+                            title: {
+                    text: null
+                }
+            },
+            yAxis: {
+        title: {
+            text: null
+        }
+    },
+    series: [{
+        name: 'Montant total des projets (en DH)',
+        data: [{% for cap in typesprojets['cap']  %}{% if loop.last %}{{ cap }}{% else %}{{ cap }},{% endif %}{% endfor %}],
+        color: '#084B82'
+
+    },
+
+        { name: 'Total des dépenses (en DH)',
+            data: [{% for depenses in typesprojets['depenses']  %}{% if loop.last %}{{ depenses }}{% else %}{{ depenses }},{% endif %}{% endfor %}],
+            color: '#BB2E32'
+
+        }]
+    });
+    });
+    $(function () {
+        Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
+            return {
+                radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
+                stops: [
+                    [0, color],
+                    [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+                ]
+            };
+        });
+
+        $('#typedepenses').highcharts({
+            chart: {
+                type: 'pie',
+
+                options3d: {
+                    enabled: true,
+                    alpha: 45,
+                    beta: 0
+                }
+            },
+            colors: ['#4F7CBF', '#23EA3A', '#EF964F', '#83CCFF', '#CCD058'],
+            title: {
+                text: '',
+                style: {
+                    display: 'none'
+                }
+            },
+            subtitle: {
+                text: '',
+                style: {
+                    display: 'none'
+                }
+            },
+            tooltip: {
+                pointFormat: '<b>{point.percentage:.1f}% ({point.y} DH)</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    depth: 35,
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b> : {point.y} DH',
+                        style: {  fontSize: '9px' }
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: " ",
+                data: [
+                    {% for key in typedepenses['lib']|keys  %}
+                    ['{{ typedepenses['lib'][key] }}',   {{ typedepenses['tot'][key] }}],
+                    {% endfor %}
+                ]
+            }]
+        });
+    });
+    $(function () {
+        $('#container').highcharts({
+        chart: {
+            type: 'pie',
+
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: true
+        },
+        title: {
+            text: ' '
+        },
+            tooltip: {
+                pointFormat: '<b>{point.name}: {point.y} jours</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+            series: [{
+
+                name: 'Types de projets',
+                data: [
+
+                    {% for key in joursprojets|keys  %}
+                    {
+                        name: '{{ key }}',
+                        y: {{ joursprojets[key]['moy'] }},
+                        drilldown: '{{ key }}'
+
+                    }
+                    {% if loop.last %} ] {% else %} , {% endif %}
+                {% endfor %}
+
+
+            }],
+            drilldown: {
+                series: [
+                    {% for cle in joursprojets|keys  %}
+                    {
+                        name: 'Projets',
+                        id: '{{ cle }}',
+                        data: [
+                            {% for key in joursprojets[cle]['projets']|keys  %}
+                            ['{{ joursprojets[cle]['projets'][key] }}', {{  joursprojets[cle]['jours'][key] }}],
+
+                            {% endfor %}
+
+                        ]
+                    },
+
+        {% endfor %}
+
+                ]  }
+    });
+    });
+
+    $(function () {
+        $('#hebergements').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: ' '
+            },
+            subtitle: {
+                text: ' '
+            },
+            xAxis: {
+                categories: [{% for heb in hebergementsexpir['nom']  %}'{% if loop.last %}{{ heb }}'{% else %}{{ heb }}',{% endif %}{% endfor %}],
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Jours',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            tooltip: {
+                valueSuffix: ' Jours'
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -40,
+                y: 100,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                shadow: true
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: "Nombre de jours avant l'expiration",
+                data: [{% for heb in hebergementsexpir['jours']  %}{% if loop.last %}{{ heb }}{% else %}{{ heb }},{% endif %}{% endfor %}],
+                color: '#084B82'
+            }]
+        });
+    });
+</script>
+
+
+
+
+{% endblock %}

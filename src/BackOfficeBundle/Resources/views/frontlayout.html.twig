@@ -1,0 +1,220 @@
+{% extends "::frontlayout.html.twig" %}
+{% block title %}
+  - {{ parent() }}
+{% endblock %}
+{% block headermenu %}
+<div class="nav-no-collapse header-nav">
+					<ul class="nav pull-right">
+						<li class="dropdown hidden-phone">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="icon-bell"></i>
+								<span class="badge red" id="nbr2">
+								 </span>
+							</a>
+							<ul class="dropdown-menu notifications" id="notifs">
+
+							</ul>
+						</li>
+						<!-- start: Notifications Dropdown -->
+						<li class="dropdown hidden-phone">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="icon-calendar"></i>
+								<span class="badge red" id="nbrp">
+								 </span>
+							</a>
+							<ul class="dropdown-menu tasks" id="encours">
+
+
+							</ul>
+						</li>
+						<!-- end: Notifications Dropdown -->
+						<!-- start: Message Dropdown -->
+						<li class="dropdown hidden-phone">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="icon-envelope"></i>
+								<span class="badge red" id="nbr">
+								 </span>
+							</a>
+							<ul class="dropdown-menu messages" id="msgs">
+
+
+
+
+
+							</ul>
+						</li>
+
+						<!-- start: User Dropdown -->
+						<li class="dropdown">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="halflings-icon white user"></i> {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+									{{ app.user.nom }} {{ app.user.prenom }}
+								{% endif %}
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li class="dropdown-menu-title">
+ 									<span>Account Settings</span>
+								</li>
+								<li><a href="{{ path('edit-profil') }}"><i class="halflings-icon user"></i> Profil</a></li>
+								<li><a href="{{ path('frontlogout') }}"><i class="halflings-icon off"></i> Logout</a></li>
+							</ul>
+						</li>
+						<!-- end: User Dropdown -->
+					</ul>
+				</div>
+				{% endblock %}
+{% block head %}
+	{{ parent() }}
+{% endblock %}
+{% block body %}
+	<div id="content" class="span10">
+ <ul class="breadcrumb">
+        <li>
+          <i class="icon-home"></i>
+          <a href="{{path('front_office_homepage')}}">Accueil</a>
+          <i class="icon-angle-right"></i>
+        </li>
+
+      </ul>
+
+{% block content_body %}
+
+
+
+
+
+{% endblock %}
+	</div><!--/#content.span10-->
+
+
+
+
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+<script>
+	function refresh2() {
+		$.ajax({
+			url: "{{ path('notification-collaborateur-message') }}",
+			success:
+					function(retour){
+
+						var msg=retour["notificationsm"];
+
+						var str="";
+						var nbr=msg["id"].length;
+
+						for(var j=0 ; j< msg["id"].length; j++){
+							var id=msg["id"][j];
+
+							var img=msg['photo'][j];
+								var pt=msg['idpt'][j];
+
+							var date=msg['date'][j];
+							if(msg['type'][j]==1) {
+								if(msg['collaborateur']=='Administrateur'){
+									str += "<li><a href='{{ path('detail-projet', { 'id': "%s" }) | format('"+pt+"') | raw}} '><span class='avatar'><img class='avatar' alt='Dennis Ji' src='{{ asset('img/avatar.jpg') }}'></span><span class='header'><span class='from'>" + msg['collaborateur'][j] + " </span><br><span class='label label-important'> p </span><span class='message'> "+msg['projet'][j]+"</span><br/><span class='time'>" + date + "</span><br/><span class='message'>" + msg['message'][j] + "</span></a></li>";
+								}else{
+									str += "<li><a href='{{ path('detail-projet', { 'id': "%s" }) | format('"+pt+"') | raw}} '><span class='avatar'><img src='{{asset("%s" )| format('"+img+"') | raw }}' alt='Avatar'></span><span class='header'><span class='from'>" + msg['collaborateur'][j] + " </span><br><span class='label label-important'> p </span><span class='message'> "+msg['projet'][j]+"</span><br/><span class='time'>" + date + "</span><br/><span class='message'>" + msg['message'][j] + "</span></a></li>";
+								}
+
+
+
+							}else{
+								if(msg['collaborateur']=='Administrateur') {
+									str += "<li><a href='{{ path('detail-tache', { 'id': "%s" }) | format('"+pt+"') | raw}} '><span class='avatar'><img class='avatar' alt='Dennis Ji' src='{{ asset('img/avatar.jpg') }}'></span><span class='header'><span class='from'>" + msg['collaborateur'][j] + " </span><br><span class='label label-success'> t </span><span class='message'> " + msg['projet'][j] + "</span><br/><span class='time'>" + date + "</span><br/><span class='message'>" + msg['message'][j] + "</span></a></li>";
+								}else{
+									str += "<li><a href='{{ path('detail-tache', { 'id': "%s" }) | format('"+pt+"') | raw}} '><span class='avatar'><img src='{{asset("%s" )| format('"+img+"') | raw }}' alt='Avatar'></span><span class='header'><span class='from'>" + msg['collaborateur'][j] + " </span><br><span class='label label-success'> t </span><span class='message'> "+msg['projet'][j]+"</span><br/><span class='time'>" + date + "</span><br/><span class='message'>" + msg['message'][j] + "</span></a></li>";
+							}
+							}
+						}
+
+						jQuery("#nbr").html(nbr);
+
+						jQuery("#msgs").html(str);
+						jQuery("#msgs").append("<li><a class='dropdown-menu-sub-footer'><br/></a></li>");
+
+
+
+					}
+		});
+		$.ajax({
+			url: "{{ path('notification-collaborateur-fichier') }}",
+			success:
+					function(retour){
+
+						var msg=retour["notificationsf"];
+
+						var str="";
+						var nbr=msg["id"].length;
+
+						for(var j=0 ; j< msg["id"].length; j++){
+							var id=msg["id"][j];
+
+							var img=msg['photo'][j];
+							var pt=msg['idpt'][j];
+
+							var date=msg['date'][j];
+							if(msg['type'][j]==1) {
+
+									str += "<li><a href='{{ path('detail-projet', { 'id': "%s" }) | format('"+pt+"') | raw}} '><span class='avatar'><img src='{{asset("%s" )| format('"+img+"') | raw }}' alt='Avatar'></span><span class='header'><span class='label label-important'> p </span><span class='message'> " + msg['projet'][j] + "</span><br/><span class='time'>" + date + "</span><br/><span class='message'>" + msg['message'][j] + "</span></a></li>";
+
+							}else if(msg['type'][j]==2){
+
+									str += "<li><a href='{{ path('detail-tache', { 'id': "%s" }) | format('"+pt+"') | raw}} '><span class='avatar'><img src='{{asset("%s" )| format('"+img+"') | raw }}' alt='Avatar'></span><span class='header'><span class='label label-success'> t </span><span class='message'> "+msg['projet'][j]+"</span><br/><span class='time'>" + date + "</span><br/><span class='message'>" + msg['message'][j] + "</span></a></li>";
+								}
+
+
+						}
+
+						jQuery("#nbr2").html(nbr);
+
+						jQuery("#notifs").html(str);
+						jQuery("#notifs").append("<li><a class='dropdown-menu-sub-footer'><br/></a></li>");
+
+
+
+					}
+		});
+		$.ajax({
+			url: "{{ path('taches-en-cours') }}",
+			success:
+					function(retour){
+
+						var msg=retour["tachesencours"];
+
+						var str="";
+						var nbr=msg["id"].length;
+
+						for(var j=0 ; j< msg["id"].length; j++){
+							var id=msg["id"][j];
+
+
+							var tache=msg['idpt'][j];
+
+							var date=msg['date'][j];
+
+
+								str += "<li><a href='{{ path('detail-tache', { 'id': "%s" }) | format('"+tache+"') | raw}} '><span class='header'><span class='label label-success'> nouvelle tâche </span><br/><span class='time'>" + date + "</span><br/><span class='message'>L'administrateur vous a affecté une nouvelle tâche : " + msg['tache'][j] + "</span></a></li>";
+
+
+
+						}
+
+						jQuery("#nbrp").html(nbr);
+
+						jQuery("#encours").html(str);
+						jQuery("#encours").append("<li><a class='dropdown-menu-sub-footer'><br/></a></li>");
+
+
+
+					}
+		});
+
+		setTimeout('refresh2();',3000);
+	}
+	jQuery(document).ready(function(){ refresh2() });
+	//refresh();
+</script>
+{% endblock %}

@@ -1,0 +1,40 @@
+front_office_homepage:
+    path:     /
+    defaults: { _controller: FrontOfficeBundle:Default:index }
+
+detail-tache:
+    path:     /view-tache/{id}
+    defaults: { _controller: FrontOfficeBundle:Tache:view }
+edit-profil:
+    path:     /edit-profil/
+    defaults: { _controller: FrontOfficeBundle:Collaborateur:edit }
+detail-projet:
+    path:     /view-projet/{id}
+    defaults: { _controller: FrontOfficeBundle:Projet:view }
+msg-projet:
+    path:     /messages-projet/{id}
+    defaults: { _controller: FrontOfficeBundle:Projet:messages }
+messages-tache:
+    path:     /message-tache/{id}
+    defaults: { _controller: FrontOfficeBundle:Tache:messages }
+notification-collaborateur-message:
+    path:     /messages-notification
+    defaults: { _controller: FrontOfficeBundle:Notification:messages }
+taches-en-cours:
+    path:    /taches-notification
+    defaults: { _controller: FrontOfficeBundle:Notification:tachesencours }
+notification-collaborateur-fichier:
+    path:     /fichier-notification
+    defaults: { _controller: FrontOfficeBundle:Notification:fichiers }
+frontlogin:
+
+    pattern:   /login
+    defaults:  { _controller: UserBundle:Security:clogin }
+
+frontlogin_check:
+
+    pattern:   /login_check
+
+frontlogout:
+
+    pattern:   /logout

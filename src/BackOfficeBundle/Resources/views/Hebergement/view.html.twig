@@ -1,0 +1,157 @@
+{% extends "BackOfficeBundle::layout.html.twig" %}
+
+{% block title %}
+   Hébergement  {{ parent() }}
+{% endblock %}
+
+{% block content_body %}
+
+	<div class="row-fluid sortable">
+				<div class="box span9">
+				{% for flashMessage in app.session.flashbag.get('notice') %}
+	<div class="alert alert-success">
+		<button type="button" class="close" data-dismiss="alert">×</button>
+		<strong>Succès ! </strong> {{ flashMessage }}
+	</div>
+
+
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('notice_erreur') %}
+	<div class="alert alert-error">
+		<button type="button" class="close" data-dismiss="alert">×</button>
+		<strong>Erreur !</strong> {{ flashMessage }}
+	</div>
+
+
+{% endfor %}
+			<div class="box-header">
+						<h2><i class="halflings-icon white font"></i><span class="break"></span>Fiche hébergement</h2>
+					</div>
+					<div class="box-content" >
+
+						<div class="box span8" ontablet="span8" ondesktop="span8">
+
+
+						<ul class="list">
+
+
+								<strong>Nom : </strong> {{ hebergement.nom }}<br><br>
+								<strong>Description : </strong>{{ hebergement.description }}<br><br>
+								<strong>Date de création : </strong>{{ hebergement.datecreation |date("d/m/Y")}}<br><br>
+								<strong>Date d'expiration : </strong>{{ hebergement.dateexpiration|date("d/m/Y") }} <br><br>
+								<strong>Date de renouvellement : </strong>{% if(hebergement.daterenouv==null) %}-{% else %}{{ hebergement.daterenouv|date("d/m/Y") }}{% endif %} <br><br>
+
+						</ul>
+
+</div>
+<div class="box span4" ontablet="span6" ondesktop="span4">
+	<div class="box-header">
+						<h2><i class="halflings-icon white user"></i><span class="break"></span>Client</h2>
+
+					</div>
+					<div class="box-content">
+						<ul class="dashboard-list">
+						{% set photo='logosclient/'~hebergement.client.path  %}
+							<li>
+
+								{% if hebergement.client.path=='' %}
+	<img class="avatar" src="{{asset('logosclient/logo.png') }}" alt="Avatar" height="50" width="50" >
+{% else %}
+	<img class="avatar" src="{{asset(photo) }}" alt="Avatar" height="50" width="50">
+{% endif %}
+
+
+								<strong>Nom : </strong> {{ hebergement.client.nom }}<br>
+								<strong>Téléphone : </strong>{{ hebergement.client.telephone }} <br>
+
+								<strong>Email : </strong>{{ hebergement.client.email }}<br>
+								<center><strong>Site Web : </strong>{{ hebergement.client.site }}</center>
+								<strong>Adresse : </strong>{{ hebergement.client.adresse }}<br>
+							</li>
+
+						</ul>
+	</div>
+				</div><!--/span-->
+				</div>
+
+</div><!--/span-->
+{% set difference = date(hebergement.dateexpiration).diff(date("now"|date("m/d/Y"))) %}
+						{% set rest = difference.days %}
+						{% if(rest<=40 and rest>0) %}
+	<div class="span3 statbox red" onTablet="span6" onDesktop="span3">
+		<div ><span><h1>Jours <br/>restants</h1></span></div>
+		<div class="number">{{ rest }}<i class=""></i></div>
+		<div class="title">Jours</div>
+		<div class="footer">
+
+			<a href="{{ path('notifier-hebergement', {'id': hebergement.id,'client':hebergement.client.id}) }}"> Notifier le client</a>
+		</div>
+	</div>
+{% elseif(rest>40 and rest<=80) %}
+	<div class="span3 statbox yellow" onTablet="span6" onDesktop="span3">
+		<div ><span><h1>Jours <br/> restants</h1></span></div>
+		<div class="number">{{ rest }}<i class=""></i></div>
+		<div class="title">Jours</div>
+		<div class="footer">
+
+		</div>
+	</div>
+{% elseif(rest<=0) %}
+	<div class="span3 statbox black" onTablet="span6" onDesktop="span3">
+		<div ><span><h1>Hébergement expiré</h1></span></div>
+
+		<div class="footer">
+
+		</div>
+	</div>
+{% else %}
+	<div class="span3 statbox green" onTablet="span6" onDesktop="span3">
+		<div ><span><h1>Jours <br/> restants</h1></span></div>
+		<div class="number">{{ rest }}<i class=""></i></div>
+		<div class="title">Jours</div>
+		<div class="footer">
+
+		</div>
+	</div>
+{% endif %}
+
+					</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal hide fade" id="myModal">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3>Settings</h3>
+		</div>
+		<div class="modal-body">
+			<p>Hefgdfgdfdfgfsdgigured...</p>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" data-dismiss="modal">Close</a>
+			<a href="#" class="btn btn-primary">Save changes</a>
+		</div>
+	</div>
+		</div>
+
+{% endblock %}

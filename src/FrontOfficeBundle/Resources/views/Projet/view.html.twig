@@ -1,0 +1,502 @@
+{% extends "BackOfficeBundle::frontlayout.html.twig" %}
+
+{% block title %}
+  Détails projet  {{ parent() }}
+{% endblock %}
+
+{% block content_body %}
+
+	<div class="row-fluid sortable">
+				<div class="box span9">
+				{% for flashMessage in app.session.flashbag.get('notice') %}
+	<div class="alert alert-success">
+		<button type="button" class="close" data-dismiss="alert">×</button>
+		<strong>Succès ! </strong> {{ flashMessage }}
+	</div>
+
+
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('notice_erreur') %}
+	<div class="alert alert-error">
+		<button type="button" class="close" data-dismiss="alert">×</button>
+		<strong>Erreur !</strong> {{ flashMessage }}
+	</div>
+
+
+{% endfor %}
+					<div class="box-header">
+						<h2><i class="halflings-icon white font"></i><span class="break"></span>Fiche du projet</h2>
+					</div>
+					<div class="box-content" >
+						  <div class="row-fluid">
+<div class="box-content" >
+				<div class="box span8" ontablet="span8" ondesktop="span8" >
+					<div class="box-header">
+						<h2><i class="halflings-icon white list"></i><span class="break"></span>Détails</h2>
+
+					</div>
+					<div class="box-content">
+
+						<ul class="list">
+
+
+								<strong>Titre : </strong> {{ projet.titre }}<br><br>
+								<strong>Description : </strong>{{ projet.description }}<br><br>
+								<strong>Type du projet : </strong>{{ projet.typeprojet.libelle }}<br><br>
+								<strong>Date de début : </strong>{{ projet.datedebut|date("d/m/Y") }} <br><br>
+								<strong>Date de fin : </strong>{{ projet.datefin|date("d/m/Y") }} <br><br>
+								<strong>Date livraison : </strong>{{ projet.datelivraison|date("d/m/Y") }} <br><br>
+
+
+
+						</ul>
+	</div>
+
+
+				</div><!--/span-->
+
+
+				<div class="box span4" ontablet="span6" ondesktop="span4">
+					<div class="box-header">
+						<h2><i class="halflings-icon white user"></i><span class="break"></span>Client</h2>
+
+					</div>
+					<div class="box-content">
+						<ul class="dashboard-list">
+						{% set photo='logosclient/'~projet.client.path  %}
+							<li>
+
+								{% if projet.client.path=='' %}
+	<img class="avatar" src="{{asset('logosclient/logo.png') }}" alt="Avatar" height="50" width="50" >
+{% else %}
+	<img class="avatar" src="{{asset(photo) }}" alt="Avatar" height="50" width="50">
+{% endif %}
+
+
+								<strong>Nom : </strong> {{ projet.client.nom }}<br>
+								<strong>Téléphone : </strong>{{ projet.client.telephone }} <br>
+
+								<strong>Email : </strong>{{ projet.client.email }}<br>
+								<center><strong>Site Web : </strong>{{ projet.client.site }}</center>
+								<strong>Adresse : </strong>{{ projet.client.adresse }}<br>
+							</li>
+
+						</ul>
+	</div>
+				</div><!--/span-->
+<div class="box span4" ontablet="span6" ondesktop="span4" id="changerstatut" style="display: none;">
+					<div class="box-header">
+						<h2><i class="halflings-icon white user"></i><span class="break"></span>Etat du projet</h2>
+
+					</div>
+
+				</div><!--/span-->
+
+
+
+
+</div>
+
+			</div>
+					  </div>
+				</div><!--/span-->
+
+				<div class="box span3">
+					<div class="box-header" >
+						<h2><i class="halflings-icon white list"></i><span class="break"></span>état d'avancement </h2>
+					</div>
+					<div class="box-content">
+						<div class="row-fluid hideInIE8 circleStats">
+
+                	<div class="circleStatsItemBox green">
+						<div class="header">{{ projet.statutprojet.libelle }}</div>
+						<span class="percent">%</span>
+						<div class="circleStat">
+                    		<input type="text" value="{{ prcentaches }}" class="whiteCircle" />
+						</div>
+						<div class="footer">
+							<span class="count">
+
+							</span>
+							<span class="sep"> {{ tachestermin }} tâches terminées / {{ tachestot }} tâches </span>
+
+							<span class="value">
+
+							</span>
+
+                	</div>
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+				</div>
+					</div>
+				</div><!--/span-->
+
+
+				<div class="row-fluid">
+
+				<div class="box  span6 noMargin" onTablet="span6" onDesktop="span6">
+					<div class="box-header">
+						<h2><i class="halflings-icon white list"></i><span class="break"></span>Tâches Timeline</h2>
+						<div class="box-icon">
+							<a href="{{ path('ajouter-tache', {'id': projet.id}) }}" title="Ajouter une tâche"><i class="halflings-icon white plus"></i></a>
+
+						</div>
+					</div>
+					<div class="box-content">
+
+
+
+					<div class="timeline">
+
+					 {% for tache in taches %}
+	<div class="timeslot alt">
+
+		<div class="task">
+
+
+					    		<span>
+									{% if tache.statuttache.id == 1 or tache.statuttache.id == 4 %}
+									<span class="label label-important">{{ tache.statuttache.libelle }}</span>
+									{% elseif tache.statuttache.id == 2 %}
+									<span class="label label-success">{{ tache.statuttache.libelle }}</span>
+									{% elseif tache.statuttache.id == 3 %}
+									<span class="label label-warning">{{ tache.statuttache.libelle }}</span>
+									{% endif %}
+									<span class="details">
+									{{ tache.titre }} :
+									</span>
+									<span class="type">{{ tache.description }}</span>
+									<span>
+
+										<span class="remaining">
+										Date de fin prévisionnelle : {{ tache.datefinprevis|date("d/m/Y") }}
+										</span>
+									</span>
+								</span>
+			<div class="arrow"></div>
+		</div>
+		<div class="icon">
+			<i class="icon-calendar"></i>
+		</div>
+		<div class="time">
+			{{ tache.datedebut|date("d-m-Y H:i:s") }}
+		</div>
+
+	</div>
+	<div class="clearfix"></div>
+{% endfor %}
+
+
+
+
+
+					</div>
+
+
+					</div>
+				</div><!--/span-->
+
+
+
+
+				<div class="box span6">
+					<div class="box-header">
+						<h2><i class="halflings-icon white th"></i><span class="break"></span>Discussion</h2>
+					</div>
+					<div class="box-content">
+						<ul class="nav tab-menu nav-tabs" id="myTab">
+
+
+
+							<li class="active" ><a href="#messages">Messages</a></li>
+								<li><a href="#fichiers">Fichiers</a></li>
+
+						</ul>
+
+						<div id="myTabContent" class="tab-content">
+
+							<div class="tab-pane" id="fichiers">
+								<div class="box-content">
+						<ul class="chat metro brown">
+							{% for fichier in fichiers %}
+	{% set file='files/'~fichier.path  %}
+
+	{% if (fichier.collaborateur==null) %}
+		<li class="left">
+			<img class="avatar" alt="Dennis Ji" src="{{asset('img/avatar.jpg') }}">
+		<span class="fichier"><span class="arrow"></span>
+									<span class="from">Administrateur : </span>
+									<span class="time">{{ fichier.datefichier|date('d/m/y h:m:s') }}</span>
+									<span class="text">
+										{{ fichier.libelle }}
+										<br/>
+										<a href="{{ asset(file) }}" >
+											{%  if(fichier.fichier=="pdf" or "pptx" or "ppt" or "rar" or "zip")  %}
+												<span class="label label-important">{{ fichier.fichier }}</span>
+											{% elseif (fichier.fichier=='xlsx' or 'xls' or 'png' or 'jpg' or 'jpeg') %}
+												<span class="label label-success">{{ fichier.fichier }}</span>
+											{% elseif(fichier.fichier=='doc' or 'docx' or 'txt') %}
+												<span class="label label-info">{{ fichier.fichier }}</span>
+											{% else %}
+												<span class="label label-info">{{ fichier.fichier }}</span>
+											{% endif %}
+											<b>{{ fichier.path }}</b>
+										</a>
+									</span>
+								</span>
+		</li>
+	{% elseif (fichier.collaborateur.id==app.user.id) %}
+		{% set photo='avatars/'~fichier.collaborateur.path  %}
+
+
+		<li class="left ">
+			{% if fichier.collaborateur.path=='' %}
+
+				<img class="avatar" alt="Dennis Ji" src="{{asset('img/avatar.jpg') }}">
+			{% else %}
+
+				<img class="avatar" alt="Dennis Ji" src="{{asset(photo) }}">
+
+
+
+			{% endif %}
+			<span class="fichier"><span class="arrow"></span>
+									<span class="from">Vous</span>
+									<span class="time">{{ fichier.datefichier|date('d/m/y h:m:s') }}</span>
+									<span class="text">
+										{{ fichier.libelle }}
+										<br/>
+										<a href="#" >
+											{%  if(fichier.fichier=="pdf" or "pptx" or "ppt" or "rar" or "zip")  %}
+												<span class="label label-important">{{ fichier.fichier }}</span>
+											{% elseif (fichier.fichier=='xls' or 'xlsx' or 'png' or 'jpg' or 'jpeg') %}
+												<span class="label label-success">{{ fichier.fichier }}</span>
+											{% elseif(fichier.fichier=='doc' or 'docx' or 'txt') %}
+												<span class="label label-info">{{ fichier.fichier }}</span>
+											{% else %}
+												<span class="label label-info">{{ fichier.fichier }}</span>
+											{% endif %}
+											<b>{{ fichier.path }}</b>
+										</a>
+									</span>
+								</span>
+		</li>
+	{% else %}
+		{% set photo='avatars/'~fichier.collaborateur.path  %}
+
+
+		<li class="left">
+			{% if fichier.collaborateur.path=='' %}
+
+				<img class="avatar" alt="Dennis Ji" src="{{asset('img/avatar.jpg') }}">
+			{% else %}
+
+				<img class="avatar" alt="Dennis Ji" src="{{asset(photo) }}">
+
+
+
+			{% endif %}
+			<span class="fichier"><span class="arrow"></span>
+									<span class="from">{{ fichier.collaborateur.nom }} {{ fichier.collaborateur.prenom }}</span>
+									<span class="time">{{ fichier.datefichier|date('d/m/y h:m:s') }}</span>
+									<span class="text">
+										{{ fichier.libelle }}
+										<br/>
+										<a href="#" >
+											{%  if(fichier.fichier=="pdf" or "pptx" or "ppt" or "rar" or "zip")  %}
+												<span class="label label-important">{{ fichier.fichier }}</span>
+											{% elseif (fichier.fichier=='xls' or 'xlsx' or 'png' or 'jpg' or 'jpeg') %}
+												<span class="label label-success">{{ fichier.fichier }}</span>
+											{% elseif(fichier.fichier=='doc' or 'docx' or 'txt') %}
+												<span class="label label-info">{{ fichier.fichier }}</span>
+											{% else %}
+												<span class="label label-info">{{ fichier.fichier }}</span>
+											{% endif %}
+											<b>{{ fichier.path }}</b>
+										</a>
+									</span>
+								</span>
+		</li>
+	{% endif %}
+
+{% endfor %}
+						</ul>
+						{{ form_start(form3) }}
+						<div class="chat-form blue">
+							<div class="control-group">
+							  <label class="control-label" for="typeahead">Titre </label>
+							  <div class="controls">
+
+								{{ form_widget(form3.libelle, {'attr': {'class': 'span6 typeahead'}}) }}
+							  </div>
+							</div>
+							<div class="control-group">
+							  <label class="control-label" for="fileInput">Fichier</label>
+							  <div class="controls">
+								<div class="uploader" id="uniform-fileInput">{{ form_widget(form3.file, {'attr': {'class': 'input-prepend'}}) }}</div>
+
+							   </div>
+							</div>
+							{{ form_widget(form3.Envoyer,{'attr': {'class': 'btn btn-warning'}},{ 'label': 'Envoyer le message' }) }}
+						</div>
+						{{ form_end(form3) }}
+					</div>
+							</div>
+							<div class="tab-pane active" id="messages">
+								<div class="box-content">
+
+						<ul class="chat metro green" id="listmsg">
+
+
+						</ul>
+						{{ form_start(form2) }}
+						<div class="chat-form black">
+							{{ form_widget(form2.message, {'attr': {'class': 'input-prepend'}},{'id': 'textmsg'}) }}
+
+							{{ form_widget(form2.Envoyer,{'attr': {'class': 'btn btn-warning'}},{ 'label': 'Envoyer le message' },{ 'id': 'kda'}) }}
+						</div>
+
+
+
+
+
+
+
+						{{ form_end(form2) }}
+					</div>
+							</div>
+						</div>
+					</div>
+				</div><!--/span-->
+
+
+			</div>
+
+
+									</div>
+				</div><!--/span-->
+
+
+
+			</div><!--/row-->
+
+
+
+	</div><!--/.fluid-container-->
+
+<div class="modal hide fade" id="myModal">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3>Settings</h3>
+		</div>
+		<div class="modal-body">
+			<p>Hefgdfgdfdfgfsdgigured...</p>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" data-dismiss="modal">Close</a>
+			<a href="#" class="btn btn-primary">Save changes</a>
+		</div>
+	</div>
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+
+		function postForm( $form, callback ){
+
+			/*
+			 * Get all form values
+			 */
+			var values = {};
+			$.each( $form.serializeArray(), function(i, field) {
+				values[field.name] = field.value;
+			});
+
+			/*
+			 * Throw the form values to the server!
+			 */
+			$.ajax({
+				type        : $form.attr( 'method' ),
+				url         : $form.attr( 'action' ),
+				data        : values,
+				success     : function(data) {
+					callback( data );
+				}
+			});
+
+		}
+		$(document).ready(function(){
+
+			var forms = [
+				'[ name="{{ form2.vars.full_name }}"]'
+			];
+
+			$( forms.join(',') ).submit( function( e ){
+				e.preventDefault();
+
+				postForm( $(this), function( response ){
+
+				});
+
+
+				return false;
+			});
+
+		});
+
+
+	</script>
+	<script>
+		function refresh() {
+			$.ajax({
+				url: "{{ path('msg-projet', {'id': projet.id}) }}",
+				success:
+						function(retour){
+
+							var msg=retour["messages"];
+
+							var str="";
+
+							for(var j=0 ; j< msg["id"].length; j++){
+								var id=msg["id"][j];
+								if(msg["nom"][j]=="Administrateur"){
+									str+="<li class='left'> <img class='avatar' alt='Dennis Ji' src='{{ asset('img/avatar.jpg') }}'> <span class='message'><span class='arrow'></span> <span class='from'>"+msg['nom'][j]+" "+msg['prenom'][j]+" : </span> <span class='time'>"+msg['date'][j]+"</span> <span class='text'>"+msg['message'][j]+"</span></span></li>";
+
+								}
+								else if(msg["nom"][j]=="Vous"){
+									var img=msg['photo'][j];
+									str+="<li class='right'> <img class='avatar' alt='Dennis Ji' src='{{asset("%s" )| format('"+img+"') | raw }}'> <span class='message'><span class='arrow'></span> <span class='from'>"+msg['nom'][j]+" "+msg['prenom'][j]+" : </span> <span class='time'>"+msg['date'][j]+"</span> <span class='text'>"+msg['message'][j]+"</span></span></li>";
+
+								}
+								else{
+									var img=msg['photo'][j];
+
+									str+="<li class='left'> <img class='avatar'  src='{{asset("%s" )| format('"+img+"') | raw }}' > <span class='message'><span class='arrow'></span> <span class='from'>"+msg['nom'][j]+" "+msg['prenom'][j]+" : </span> <span class='time'>"+msg['date'][j]+"</span> <span class='text'>"+msg['message'][j]+"</span></span></li>";
+								}
+
+							}
+
+
+							jQuery("#listmsg").html(str);
+
+
+
+						}
+			});
+
+			setTimeout('refresh();',3000);
+		}
+		jQuery(document).ready(function(){ refresh() });
+		//refresh();
+	</script>
+{% endblock %}

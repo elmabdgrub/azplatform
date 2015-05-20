@@ -1,0 +1,86 @@
+{% extends "BackOfficeBundle::layout.html.twig" %}
+
+{% block title %}
+  Ajouter une dépense  {{ parent() }}
+{% endblock %}
+
+{% block content_body %}
+<div class="row-fluid sortable ui-sortable">
+
+					<div class="box-header" data-original-title="">
+						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Nouvelle dépense</h2>
+						<div class="box-icon">
+							
+						</div>
+					</div>
+					<div class="box-content">
+					{% for flashMessage in app.session.flashbag.get('notice') %}
+					<div class="alert alert-success">
+							<button type="button" class="close" data-dismiss="alert">×</button>
+							<strong>Succès ! </strong> {{ flashMessage }}
+						</div>
+
+        
+					{% endfor %}
+						 {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+						 {{ form_errors(form) }}
+						  <fieldset>
+							  
+							<div class="control-group">
+								<label class="control-label" for="selectError">Type de dépense</label>
+								<div class="controls">
+								 {{ form_widget(form.typedepense, {'attr': {'class': 'chzn-done'}}) }}
+								</div>
+							  </div>
+							
+							<div class="control-group">
+							  <label class="control-label" for="date01">Libelle </label>
+							  <div class="controls">
+							  <div class="input-prepend">
+								{{ form_widget(form.libelle, {'attr': {'class': 'input-prepend'}}) }}
+
+							   </div>
+							   </div>
+							</div>
+							<div class="control-group">
+							  <label class="control-label" for="date01">Description </label>
+							  <div class="controls">
+							  <div class="input-prepend">
+								{{ form_widget(form.description, {'attr': {'class': ''}}) }}
+
+							   </div>
+							   </div>
+							</div>
+
+						<div class="control-group">
+							  <label class="control-label" for="date01">Montant </label>
+							  <div class="controls">
+							  <div class="input-prepend">
+								{{ form_widget(form.montant, {'attr': {'class': 'input-prepend'}}) }}
+								<span class="add-on">DH</span>
+
+							   </div>
+							   </div>
+							</div>
+
+
+
+							
+							<div class="form-actions">
+							  {{ form_widget(form.Enregistrer,{'attr': {'class': 'btn btn-primary'}},{ 'label': 'Ajouter' }) }}
+								 <button type="reset" class="btn">Cancel</button>
+
+							</div>
+							
+							
+						  </fieldset>
+						{{ form_end(form) }}
+
+					</div>
+</div>
+</div>
+
+
+
+{% endblock %}
+

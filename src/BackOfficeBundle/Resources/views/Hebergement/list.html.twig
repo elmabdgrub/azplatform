@@ -1,0 +1,107 @@
+{% extends "BackOfficeBundle::layout.html.twig" %}
+
+{% block title %}
+  Liste des hébergements  {{ parent() }}
+{% endblock %}
+
+{% block content_body %}
+
+	<div class="row-fluid sortable">
+		<div class="box span12">
+			<div class="box-header" data-original-title>
+				<h2><i class="halflings-icon white user"></i><span class="break"></span>Hébergements</h2>
+				<div class="box-icon">
+
+				</div>
+			</div>
+
+			<div class="box-content">
+				{% for flashMessage in app.session.flashbag.get('notice') %}
+					<div class="alert alert-success">
+						<button type="button" class="close" data-dismiss="alert">×</button>
+						<strong>Succès ! </strong> {{ flashMessage }}
+					</div>
+
+
+				{% endfor %}
+				{% for flashMessage in app.session.flashbag.get('notice_erreur') %}
+					<div class="alert alert-error">
+						<button type="button" class="close" data-dismiss="alert">×</button>
+						<strong>Erreur !</strong> {{ flashMessage }}
+					</div>
+
+
+				{% endfor %}
+
+				<table class="table table-striped table-bordered bootstrap-datatable datatable">
+					<thead>
+					<tr>
+
+						<th style="font-size: 12px;">Nom</th>
+						<th style="font-size: 12px;">Client</th>
+						<th style="font-size: 12px;">Description</th>
+						<th style="font-size: 12px;">Date création</th>
+						<th style="font-size: 12px;">Date expiration</th>
+						<th style="font-size: 12px;">Date renouvellement </th>
+						<th style="font-size: 12px;"> Jours restant</th>
+
+						<th style="font-size: 12px;">Actions</th>
+					</tr>
+					</thead>
+					<tbody>
+					{% for heb in listhebergement %}
+					<tr>
+
+						<td class="center" style="font-size: 13px;">{{ heb.nom }}</td>
+
+
+						<td class="center" >{{ heb.client.nom }}</td>
+						<td class="center" style="font-size: 12px;" width="15%">{{ heb.description }}</td>
+						<td class="center" >{{ heb.datecreation |date("d/m/Y")}}</td>
+						<td class="center" >{{ heb.dateexpiration|date("d/m/Y") }}</td>
+						{% set difference = date(heb.dateexpiration).diff(date("now"|date("m/d/Y"))) %}
+						{% set rest = difference.days %}						{% if(heb.daterenouv==null) %}
+
+							<td class="center" style="font-size: 18px;"><center>-</center></td>
+
+						{% else %}
+
+							<td class="center" >{{ heb.daterenouv|date("d/m/Y") }}</td>
+
+						{% endif %}
+
+						{% if(rest<=20 and rest>0) %}
+						<td class="center"><span class="label label-important">{{ rest }} jours</span></td>
+						{% elseif(rest<=0) %}
+							<td class="center"><span class="label label-important">Expiré</span></td>
+						{% elseif(rest>20 and rest<=60) %}
+							<td class="center"><span class="label label-warning">{{ rest }} jours</span></td>
+						{% else %}
+							<td class="center"><span class="label label-success">{{ rest }} jours</span></td>
+						{% endif %}
+
+
+						<td class="center">
+							<a class="btn btn-info" href="{{ path('view-hebergement', {'id': heb.id}) }}">
+								<i class="halflings-icon white zoom-in"></i>
+							</a>
+
+							<a class="btn btn-info" href="{{ path('edit-hebergement', {'id': heb.id}) }}">
+								<i class="halflings-icon white edit"></i>
+							</a>
+							<a class="btn btn-danger" href="{{ path('delete-hebergement', {'id': heb.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer?')">
+								<i class="halflings-icon white trash"></i>
+							</a>
+						</td>
+					</tr>
+					{% endfor %}
+
+					</tbody>
+				</table>
+			</div>
+		</div><!--/span-->
+
+	</div><!--/row-->
+	</div>
+{% endblock %}
+

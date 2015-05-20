@@ -1,0 +1,73 @@
+{% extends "BackOfficeBundle::layout.html.twig" %}
+
+{% block title %}
+  Liste des types de projets  {{ parent() }}
+{% endblock %}
+
+{% block content_body %}
+
+	<div class="row-fluid sortable">
+		<div class="box span12">
+			<div class="box-header" data-original-title>
+				<h2><i class="halflings-icon white user"></i><span class="break"></span>Types de projets</h2>
+				<div class="box-icon">
+
+				</div>
+			</div>
+
+			<div class="box-content">
+				{% for flashMessage in app.session.flashbag.get('notice') %}
+					<div class="alert alert-success">
+						<button type="button" class="close" data-dismiss="alert">×</button>
+						<strong>Succès ! </strong> {{ flashMessage }}
+					</div>
+
+
+				{% endfor %}
+				{% for flashMessage in app.session.flashbag.get('notice_erreur') %}
+					<div class="alert alert-error">
+						<button type="button" class="close" data-dismiss="alert">×</button>
+						<strong>Erreur !</strong> {{ flashMessage }}
+					</div>
+
+
+				{% endfor %}
+
+				<table class="table table-striped table-bordered bootstrap-datatable datatable">
+					<thead>
+					<tr>
+
+						<th>Libellé</th>
+
+
+						<th>Actions</th>
+					</tr>
+					</thead>
+					<tbody>
+					{% for type in listetypesprojets %}
+					<tr>
+
+						<td class="center">{{ type.libelle }}</td>
+
+
+						<td class="center">
+
+							<a class="btn btn-info" href="{{ path('edit-type-projet', {'id': type.id}) }}">
+								<i class="halflings-icon white edit"></i>
+							</a>
+							<a class="btn btn-danger" href="{{ path('delete-type-projet', {'id': type.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer?')">
+								<i class="halflings-icon white trash"></i>
+
+							</a>
+						</td>
+					</tr>
+					{% endfor %}
+
+					</tbody>
+				</table>
+			</div>
+		</div><!--/span-->
+
+	</div><!--/row-->
+{% endblock %}
+

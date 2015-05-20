@@ -1,0 +1,192 @@
+{% extends "BackOfficeBundle::layout.html.twig" %}
+
+{% block title %}
+  Ajouter un collaborateur  {{ parent() }}
+{% endblock %}
+
+{% block content_body %}
+<div class="row-fluid sortable ui-sortable">
+
+					<div class="box-header" data-original-title="">
+						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Nouveau collaborateur</h2>
+						<div class="box-icon">
+							
+						</div>
+					</div>
+					<div class="box-content">
+					{% for flashMessage in app.session.flashbag.get('notice') %}
+					<div class="alert alert-success">
+							<button type="button" class="close" data-dismiss="alert">×</button>
+							<strong>Succès ! </strong> {{ flashMessage }}
+						</div>
+
+        
+					{% endfor %}
+						{% for flashMessage in app.session.flashbag.get('notice_erreur') %}
+							<div class="alert alert-error">
+								<button type="button" class="close" data-dismiss="alert">×</button>
+								<strong>Erreur !</strong> {{ flashMessage }}
+							</div>
+
+
+						{% endfor %}
+
+						{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+						{{ form_errors(form) }}
+						  <fieldset>
+							  
+						<div class="control-group">
+								<label class="control-label" for="selectError">Poste</label>
+								<div class="controls">
+								 {{ form_widget(form.postecollaborateur, {'attr': {'class': 'chzn-done'}}) }}
+								</div>
+							  </div>
+							 
+							<div class="control-group">
+							  <label class="control-label" for="date01">Nom </label>
+							  <div class="controls">
+							  <div class="input-prepend">
+								{{ form_widget(form.nom, {'attr': {'class': 'input-prepend'}}) }}
+
+							   </div>
+							   </div>
+							</div>
+								<div class="control-group">
+							  <label class="control-label" for="date01">Prénom </label>
+							  <div class="controls">
+							  <div class="input-prepend">
+								{{ form_widget(form.prenom, {'attr': {'class': 'input-prepend'}}) }}
+
+							   </div>
+							   </div>
+							</div>
+								<div class="control-group">
+							  <label class="control-label" for="date01">Email </label>
+							  <div class="controls">
+							  <div class="input-prepend">
+								{{ form_widget(form.email, {'attr': {'class': 'input-prepend'}}) }}
+
+							   </div>
+							   </div>
+							</div>
+								<div class="control-group">
+							  <label class="control-label" for="date01">Téléphone </label>
+							  <div class="controls">
+							  <div class="input-prepend">
+								{{ form_widget(form.telephone, {'attr': {'class': 'input-prepend'}}) }}
+
+							   </div>
+							   </div>
+							</div>
+								<div class="control-group">
+							  <label class="control-label" for="date01">Photo </label>
+							  <div class="controls">
+							  <div class="input-prepend">
+								{{ form_widget(form.file, {'attr': {'class': 'input-prepend'}}) }}
+
+							   </div>
+							   </div>
+							</div>
+							  <div class="control-group">
+								  <label class="control-label" for="date01"> Compétences  :  </label>
+
+
+								  <ul id="myULTags">
+									  <!-- Existing list items will be pre-added to the tags. -->
+
+								  </ul>
+
+
+
+							  </div>
+							  {{ form_widget(form.tags, { 'id': 'mySingleField','attr': {'class': 'input-prepend'}}) }}
+
+							
+							<div class="form-actions">
+							  {{ form_widget(form.Enregistrer,{'attr': {'class': 'btn btn-primary'}},{ 'label': 'Ajouter' }) }}
+								 <button type="reset" class="btn">Cancel</button>
+
+							</div>
+							
+							
+						  </fieldset>
+							{{ form_end(form) }}
+					</div>
+				</div>
+
+
+
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+
+		$(function(){
+			var sampleTags = ['objective-c', 'java', 'php', 'android', 'javascript', 'asp', 'ruby', 'python', 'c', 'html', 'css', 'jquery', 'symfony', 'cakephp', 'zend', 'photoshop', 'illustrator', 'after effect'];
+
+			//-------------------------------
+			// Minimal
+			//-------------------------------
+			$('#myTags').tagit();
+
+			//-------------------------------
+			// Single field
+			//-------------------------------
+
+
+			//-------------------------------
+			// Preloading data in markup
+			//-------------------------------
+			$('#myULTags').tagit({
+				availableTags: sampleTags, // this param is of course optional. it's for autocomplete.
+				// configure the name of the input field (will be submitted with form), default: item[tags]
+				itemName: 'item',
+				fieldName: 'tags',
+				singleField: true,
+				singleFieldNode: $('#mySingleField')
+			});
+
+			//-------------------------------
+			// Tag events
+			//-------------------------------
+			var eventTags = $('#eventTags');
+
+			var addEvent = function(text) {
+				$('#events_container').append(text + '<br>');
+			};
+
+			eventTags.tagit({
+				availableTags: sampleTags,
+				beforeTagAdded: function(evt, ui) {
+					if (!ui.duringInitialization) {
+						addEvent('beforeTagAdded: ' + eventTags.tagit('tagLabel', ui.tag));
+					}
+				},
+				afterTagAdded: function(evt, ui) {
+					if (!ui.duringInitialization) {
+						addEvent('afterTagAdded: ' + eventTags.tagit('tagLabel', ui.tag));
+					}
+				},
+				beforeTagRemoved: function(evt, ui) {
+					addEvent('beforeTagRemoved: ' + eventTags.tagit('tagLabel', ui.tag));
+				},
+				afterTagRemoved: function(evt, ui) {
+					addEvent('afterTagRemoved: ' + eventTags.tagit('tagLabel', ui.tag));
+				},
+				onTagClicked: function(evt, ui) {
+					addEvent('onTagClicked: ' + eventTags.tagit('tagLabel', ui.tag));
+				},
+				onTagExists: function(evt, ui) {
+					addEvent('onTagExists: ' + eventTags.tagit('tagLabel', ui.existingTag));
+				}
+			});
+
+
+
+		});
+	</script>
+
+
+
+
+{% endblock %}

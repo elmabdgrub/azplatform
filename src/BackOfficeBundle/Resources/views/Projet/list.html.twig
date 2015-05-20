@@ -1,0 +1,98 @@
+{% extends "BackOfficeBundle::layout.html.twig" %}
+
+{% block title %}
+  Liste des projets  {{ parent() }}
+{% endblock %}
+
+{% block content_body %}
+
+	<div class="row-fluid sortable">
+		<div class="box span12">
+			<div class="box-header" data-original-title>
+				<h2><i class="halflings-icon white user"></i><span class="break"></span>Projets</h2>
+				<div class="box-icon">
+
+				</div>
+			</div>
+
+			<div class="box-content">
+				{% for flashMessage in app.session.flashbag.get('notice') %}
+					<div class="alert alert-success">
+						<button type="button" class="close" data-dismiss="alert">×</button>
+						<strong>Succès ! </strong> {{ flashMessage }}
+					</div>
+
+
+				{% endfor %}
+				{% for flashMessage in app.session.flashbag.get('notice_erreur') %}
+					<div class="alert alert-error">
+						<button type="button" class="close" data-dismiss="alert">×</button>
+						<strong>Erreur !</strong> {{ flashMessage }}
+					</div>
+
+
+				{% endfor %}
+
+				<table class="table table-striped table-bordered bootstrap-datatable datatable">
+					<thead>
+					<tr>
+
+						<th>Titre</th>
+
+						<th>Type du projet</th>
+						<th>Client</th>
+						<th>Date début</th>
+						<th>Date de fin</th>
+						<th>Date de livraison</th>
+						<th>Montant</th>
+						<th>Statut</th>
+
+						<th>Actions</th>
+					</tr>
+					</thead>
+					<tbody>
+					{% for projet in listeprojet %}
+					<tr>
+
+						<td class="center">{{ projet.titre }}</td>
+
+						<td class="center">{{ projet.typeprojet.libelle }}</td>
+						<td class="center">{{ projet.client.nom }}</td>
+						<td class="center">{{ projet.datedebut|date("d/m/Y") }}</td>
+						<td class="center">{{ projet.datefin |date("d/m/Y")}}</td>
+						<td class="center">{{ projet.datelivraison|date("d/m/Y") }}</td>
+						<td class="center">{{ projet.montant }}DH</td>
+						<td class="center">
+							{% if projet.statutprojet.id == 1  %}
+								<span class="label label-warning">{{ projet.statutprojet.libelle }}</span>
+
+							{% elseif projet.statutprojet.id == 2 or projet.statutprojet.id == 4 %}
+								<span class="label label-success">{{ projet.statutprojet.libelle }}</span>
+							{% elseif projet.statutprojet.id == 3 or projet.statutprojet.id == 5 %}
+								<span class="label label-important">{{ projet.statutprojet.libelle }}</span>
+
+							{% endif %}
+						</td>
+
+						<td class="center">
+							<a class="btn btn-info" href="{{ path('view-projet', {'id': projet.id}) }}">
+								<i class="halflings-icon white zoom-in"></i>
+							</a>
+
+							<a class="btn btn-info" href="{{ path('edit-projet', {'id': projet.id}) }}">
+								<i class="halflings-icon white edit"></i>
+							</a>
+
+						</td>
+					</tr>
+					{% endfor %}
+
+					</tbody>
+				</table>
+			</div>
+		</div><!--/span-->
+
+	</div><!--/row-->
+	</div>
+{% endblock %}
+

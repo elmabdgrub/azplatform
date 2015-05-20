@@ -1,0 +1,117 @@
+{% extends "BackOfficeBundle::layout.html.twig" %}
+
+{% block title %}
+  Modifier un projet  {{ parent() }}
+{% endblock %}
+
+{% block content_body %}
+<div class="row-fluid sortable ui-sortable">
+
+					<div class="box-header" data-original-title="">
+						<h2><i class="halflings-icon white edit"></i><span class="break"></span>Modifier projet</h2>
+						<div class="box-icon">
+							
+						</div>
+					</div>
+					<div class="box-content">
+					{% for flashMessage in app.session.flashbag.get('notice') %}
+					<div class="alert alert-success">
+							<button type="button" class="close" data-dismiss="alert">×</button>
+							<strong>Succès ! </strong> {{ flashMessage }}
+						</div>
+
+        
+					{% endfor %}
+						 {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+						 {{ form_errors(form) }}
+						  <fieldset>
+							  
+						<div class="control-group">
+								<label class="control-label" for="selectError">Type du projet</label>
+								<div class="controls">
+								 {{ form_widget(form.typeprojet, {'attr': {'class': 'chzn-done'}}) }}
+								</div>
+							  </div>
+							  <div class="control-group">
+								<label class="control-label" for="selectError">Client</label>
+								<div class="controls">
+								 {{ form_widget(form.client, {'attr': {'class': 'chzn-done'}}) }}
+								</div>
+							  </div>
+							
+							<div class="control-group">
+							  <label class="control-label" for="date01">Titre </label>
+							  <div class="controls">
+							  <div class="input-prepend">
+								{{ form_widget(form.titre, {'attr': {'class': 'input-prepend'}}) }}
+
+							   </div>
+							   </div>
+							</div>
+							<div class="control-group">
+							  <label class="control-label" for="date01">Description </label>
+							  <div class="controls">
+							  <div class="input-prepend">
+								{{ form_widget(form.description, {'attr': {'class': ''}}) }}
+
+							   </div>
+							   </div>
+							</div>
+
+							<div class="control-group">
+							  <label class="control-label" for="date01">Date début </label>
+							  <div class="controls">
+							  <div class="input-prepend">
+								{{ form_widget(form.datedebut, {'attr': {'class': 'input-prepend'}}) }}
+
+							   </div>
+							   </div>
+							</div>
+							<div class="control-group">
+							  <label class="control-label" for="date01">Date de fin </label>
+							  <div class="controls">
+							  <div class="input-prepend">
+								{{ form_widget(form.datefin, {'attr': {'class': 'input-prepend'}}) }}
+
+							   </div>
+							   </div>
+							</div>
+							<div class="control-group">
+							  <label class="control-label" for="date01">Date de livraison </label>
+							  <div class="controls">
+							  <div class="input-prepend">
+								{{ form_widget(form.datelivraison, {'attr': {'class': 'input-prepend'}}) }}
+
+							   </div>
+							   </div>
+							</div>
+							<div class="control-group">
+							  <label class="control-label" for="date01">Montant </label>
+							  <div class="controls">
+							  <div class="input-prepend">
+								{{ form_widget(form.montant, {'attr': {'class': 'input-prepend'}}) }}
+								<span class="add-on">DH</span>
+
+							   </div>
+							   </div>
+							</div>
+							
+							<div class="form-actions">
+							  {{ form_widget(form.Enregistrer,{'attr': {'class': 'btn btn-primary'}},{ 'label': 'Ajouter' }) }}
+								 <button type="reset" class="btn">Cancel</button>
+
+							</div>
+							
+							
+						  </fieldset>
+						{{ form_end(form) }}
+
+					</div>
+				</div>
+	</div>
+
+
+
+
+{% endblock %}
+
